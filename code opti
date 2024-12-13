@@ -274,7 +274,7 @@ def update_allocation(allocation, cycle):
 # --- Main Function ---
 def main():
     # Test with the provided data
-    file_path = r"C:\Users\matth\PycharmProjects\transportation.xlsx"
+    file_path = r"C:\Users\matth\OneDrive - Universitat de Vic\transportation.xlsx"
     costs, supply, demand = read_excel(file_path)
 
     print("Costs Matrix:")
