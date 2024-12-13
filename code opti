@@ -4,10 +4,7 @@ from itertools import product
 
 #Read input data from Excel
 def read_excel(file_path):
-    """
-    Reads the transportation problem data from an Excel file.
-    Returns the costs matrix, supply vector, and demand vector.
-    """
+    
     df = pd.read_excel(file_path, header=None)
     costs = df.iloc[:3, :3].values  
     supply = df.iloc[:3, 3].values  
@@ -17,10 +14,7 @@ def read_excel(file_path):
 
 # Northwest Corner Rule Method
 def northwest_corner(costs, supply, demand):
-    """
-    Solves the transportation problem using the Northwest Corner method.
-    Returns the initial allocation matrix.
-    """
+    
     rows, cols = costs.shape
     allocation = np.zeros((rows, cols))
     i, j = 0, 0
@@ -39,10 +33,7 @@ def northwest_corner(costs, supply, demand):
 
 #Minimum Cost Method
 def minimum_cost_method(costs, supply, demand):
-    """
-    Solves the transportation problem using the Minimum Cost method.
-    Returns the initial allocation matrix.
-    """
+   
     rows, cols = costs.shape
     allocation = np.zeros((rows, cols))
 
@@ -59,10 +50,7 @@ def minimum_cost_method(costs, supply, demand):
 
 # Vogel's Approximation Method
 def vogels_method(costs, supply, demand):
-    """
-    Solves the transportation problem using Vogel's Approximation method.
-    Returns the initial allocation matrix.
-    """
+    
     rows, cols = costs.shape
     allocation = np.zeros((rows, cols))
 
@@ -120,7 +108,7 @@ def vogels_method(costs, supply, demand):
     return allocation
 
 
-# --- Total Cost Calculation ---
+# Total Cost Calculation
 def calculate_total_cost(allocation, costs):
     """
     Calculates the total transportation cost based on the allocation matrix and cost matrix.
@@ -128,7 +116,7 @@ def calculate_total_cost(allocation, costs):
     return np.sum(allocation * costs)
 
 
-# --- Transportation Simplex Algorithm ---
+# Transportation Simplex Algorithm
 def transportation_simplex(costs, allocation):
     """
     Solves the transportation problem using the Simplex algorithm.
@@ -162,15 +150,15 @@ def transportation_simplex(costs, allocation):
     return allocation
 
 
-# --- Helper Functions for Simplex Algorithm ---
+# Helper Functions for Simplex Algorithm
 def find_basic_variables(allocation):
-    """Find positions of basic variables (non-zero allocations)"""
+    
     rows, cols = allocation.shape
     return [(i, j) for i, j in product(range(rows), range(cols)) if allocation[i, j] > 0]
 
 
 def compute_dual_variables(costs, basic_vars):
-    """Compute dual variables u and v using basic variables"""
+    
     rows = max(i for i, _ in basic_vars) + 1
     cols = max(j for _, j in basic_vars) + 1
 
@@ -197,7 +185,7 @@ def compute_dual_variables(costs, basic_vars):
 
 
 def compute_reduced_costs(costs, u, v):
-    """Compute reduced costs for all variables"""
+   
     rows, cols = costs.shape
     reduced_costs = np.zeros((rows, cols))
 
@@ -208,7 +196,7 @@ def compute_reduced_costs(costs, u, v):
 
 
 def find_entering_variable(reduced_costs, basic_vars):
-    """Find the entering variable with the most negative reduced cost"""
+    
     min_cost = 0
     entering = None
 
@@ -222,7 +210,7 @@ def find_entering_variable(reduced_costs, basic_vars):
 
 
 def find_cycle(entering, basic_vars, rows, cols):
-    """Find a cycle starting from the entering variable"""
+  
     def build_cycle(start, current, visited, direction, cycle):
         if len(cycle) > 1 and current == start:
             return cycle
@@ -258,7 +246,7 @@ def find_cycle(entering, basic_vars, rows, cols):
 
 
 def update_allocation(allocation, cycle):
-    """Update the allocation matrix based on the cycle"""
+    
     theta = min(allocation[cycle[i]] for i in range(1, len(cycle), 2))  # Check odd-indexed positions (minus positions)
 
     for i in range(len(cycle)):
@@ -271,7 +259,7 @@ def update_allocation(allocation, cycle):
     return allocation
 
 
-# --- Main Function ---
+# - Main Function
 def main():
     # Test with the provided data
     file_path = r"C:\Users\matth\OneDrive - Universitat de Vic\transportation.xlsx"
