@@ -2,20 +2,20 @@ import pandas as pd
 import numpy as np
 from itertools import product
 
-# --- Read input data from Excel ---
+#Read input data from Excel
 def read_excel(file_path):
     """
     Reads the transportation problem data from an Excel file.
     Returns the costs matrix, supply vector, and demand vector.
     """
     df = pd.read_excel(file_path, header=None)
-    costs = df.iloc[:3, :3].values  # The cost matrix (3x3)
-    supply = df.iloc[:3, 3].values  # The supply vector (3,)
-    demand = df.iloc[3, :3].values  # The demand vector (3,)
+    costs = df.iloc[:3, :3].values  
+    supply = df.iloc[:3, 3].values  
+    demand = df.iloc[3, :3].values  
     return costs, supply, demand
 
 
-# --- Northwest Corner Rule Method ---
+# Northwest Corner Rule Method
 def northwest_corner(costs, supply, demand):
     """
     Solves the transportation problem using the Northwest Corner method.
@@ -37,7 +37,7 @@ def northwest_corner(costs, supply, demand):
     return allocation
 
 
-# --- Minimum Cost Method ---
+#Minimum Cost Method
 def minimum_cost_method(costs, supply, demand):
     """
     Solves the transportation problem using the Minimum Cost method.
@@ -57,7 +57,7 @@ def minimum_cost_method(costs, supply, demand):
     return allocation
 
 
-# --- Vogel's Approximation Method ---
+# Vogel's Approximation Method
 def vogels_method(costs, supply, demand):
     """
     Solves the transportation problem using Vogel's Approximation method.
